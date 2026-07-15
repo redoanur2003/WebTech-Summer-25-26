@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        Personal Portfolio
+    </title>
+    <style>
+        #mode {
+            background-color: white;
+            color: black;
+            padding: 2px;
+        }
+
+        .nav {
+            gap: 12px;
+            text-align: center;
+        }
+
+        .same {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body id="page">
+    <nav>
+        <ul class="nav">
+            <button onclick="displayPart('about')">about</button>
+            <button onclick="displayPart('project')">Project</button>
+            <button onclick="displayPart('contact')">Contact</button>
+            <button onclick="modeChange()" id="mode">Light mode</button>
+        </ul>
+
+    </nav>
+    <div class="same">
+        <h1>My Portfolio</h1>
+        <h2 id="greeting"></h2>
+    </div>
+    <section class="same part" id="about">
+        <h2>About Me</h2>
+        <p>
+            Hello!My name is Redoanur Rahman.I am a Web Technology student about
+            JavaScript,HTML,CSS.
+        </p>
+    </section>
+
+    <section class="same part" id="project">
+        <h2>Projects</h2>
+        <ul>
+            <li>Portfolio Website</li>
+            <li>Student Management System</li>
+            <li>Online Shopping Website</li>
+        </ul>
+    </section>
+
+
+    <section class="same part" id="contact">
+        <h1>Contact Me</h1>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="name">
+            <br>
+            <br>
+            <label>Email:</label>
+            <input type="email" id="email">
+            <br>
+            <br>
+            <label>Massage:</label>
+            <textarea id="mass" rows="5" cols="20"></textarea>
+            <br>
+            <br>
+            <button onclick="handleSubmit()">Submit</button>
+        </div>
+
+        <h1 id="error"></h1>
+    </section>
+</body>
+
+<script>
+    var mode = document.getElementById("mode");
+    var page = document.getElementById("page");
+    function modeChange() {
+        // console.log("hi")
+        if (mode.innerHTML === "Light mode") {
+            page.style.backgroundColor = "black";
+            page.style.color = "white";
+            mode.innerHTML = "Dark mode";
+        }
+        else {
+            page.style.backgroundColor = "white";
+            page.style.color = "black";
+            mode.innerHTML = "Light mode"
+        }
+    }
+
+    let hour = new Date().getHours();
+    let greeting = "";
+
+    if (hour < 12) {
+        greeting = "Good Morning";
+    }
+    else if (hour < 18) {
+        greeting = "Good Afternoon";
+    }
+    else {
+        greeting = "Good Evening";
+    }
+
+    document.getElementById("greeting").innerText = greeting;
+
+    function displayPart(part) {
+        let sections = document.getElementsByClassName("part");
+        for (let section of sections) {
+            section.style.display = 'none';
+        }
+        document.getElementById(part).style.display = "block"
+    }
+
+    //form valid
+
+    function handleSubmit() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var mass = document.getElementById('mass').value;
+        var error = document.getElementById('error');
+        let cd = "";
+
+        let isError = true;
+
+        if (name === '' || email === '' || mass === '') {
+            cd += "Please fill the from.<br>";
+            isError = false;
+
+        }
+        if (mass.length < 10) {
+            cd += "Massage should br minimum 10 characters"
+            isError = false;
+        }
+
+        if (email.includes("@") && email.includes('.')) {
+
+        }
+        else {
+            cd += "Please fill the proper email method.<br>"
+            isError = false
+        }
+
+        if (isError) {
+            error.innerHTML = "Information valid";
+            error.style.color = "green"
+        }
+        else {
+            error.innerHTML = cd;
+            error.style.color = "red";
+        }
+
+    }
+</script>
+
+</html>
